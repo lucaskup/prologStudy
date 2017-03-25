@@ -74,23 +74,31 @@ concatena([H1|T1], L2, [H3|T3]) :-
 
 %--exercicio g --------------------------------------------------
 
-insere_elem([H1|T1], E, I, [H2|T2]) :- %– verdadeiro se o elemento E for inserido na posição de índice
+%– verdadeiro se o elemento E for inserido na posição de índice
 %I da lista L1, resultando na lista L2. Falso caso contrário. Note que este predicado também
 %deverá poder ser usado para eliminar um elemento da posição de índice I da lista L2, se esta
 %lista for dada como fixa, enquanto L1 e E estiverem livres.
+
+%Primeiro caso, se o índice é 1, então o elemento da segunda lista deve ser E
+%a primeira lista se mantém e a segunda avança um elemento
+insere_elem([H1|T1], E, I, [H2|T2]) :- 
     I = 1,
     H2 = E,
     insere_elem([H1|T1], E, 0, T2).
+%Segundo caso, se o índice é 1, então o elemento da segunda lista deve ser igual
+%a primeira lista, o indice deve diminuir e seguimos avaliando
 insere_elem([H1|T1], E, I, [H2|T2]) :-
     I \= 1,
     H1 = H2,
     I1 is I - 1,
     insere_elem(T1, E, I1, T2).
+%Caso base 1, insercao no fim da lista, L1 = [] porem a lista L2 ainda tem mais um elemento
 insere_elem(L1, E, I, [H2|T2]):-
     L1 = [],
     I = 1,
     H2 = E,
     T2 = [].
+%Caso base 2, se I é menor ou igual a 1 ja aconteceu a insercao, entao ambas listas L1 e L2 ja estao ok
 insere_elem([], _, I, []):-
     I < 1.
 
