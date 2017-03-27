@@ -58,6 +58,29 @@ altera(E, [H1|T1], I, J, [H2|T2]) :-
     altera(E, T1, 0, J1, T2).
 
 %--exercício c--------------------------------------------------
+%Uma matriz é transposta da outra se a primeira coluna da primeira 
+%é igual a primeira linha da segunda, recursivamente
+transposta(M,[H2|T2]):-
+    primColuna(M,X,H2),
+    transposta(X,T2).
+
+%Caso base, transposta de uma matriz vazia é igual a matriz vazia
+transposta([],[]).
+% Esse teste serve para assegurar que a tabela é uma matriz,
+% como isso é feito, bom, se o primeiro elemento da primeira matriz esta
+% vazio, todos os demais devem estar vazios tambem, entao segue a iteracao
+% com a esperança de cair no caso base
+transposta([[]|T],[]) :-
+    transposta(T,[]).
+
+%predicado auxiliar para tratar o exercício, captira a primera coluna da matriz e 
+% da como saida a tabela restante e uma lista representando a primeira coluna
+primColuna([[H|T1]|R1],[H2|T2],[H3|T3]) :-
+    T1 = H2,
+    H = H3,
+    primColuna(R1,T2,T3).
+primColuna([],[],[]).
+
 
 %--exercício d--------------------------------------------------
 
