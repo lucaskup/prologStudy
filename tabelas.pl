@@ -85,31 +85,22 @@ primColuna([],[],[]).
 %--exercício d--------------------------------------------------
 
 %quando o indice é igual a 1 temos que inserir a linha L na matriz e seguir avaliando
-insere_lin([H1|T1], I, L,[H2|T2]) :-
-    I = 1,
-    H2 = L,
-    I1 is 1 - 1,
-    insere_lin([H1|T1], I1, L,T2).
+insere_lin([H1|T1], 1, L,[L|T2]) :-
+    insere_lin([H1|T1], 0, L,T2).
 
 %quando o indice não é 1 basta copiar as listas
-insere_lin([H1|T1], I, L,[H2|T2]) :-
-    I \= 1,
-    H2 = H1,
+insere_lin([H|T1], I, L,[H|T2]) :-
+   % I \= 1,
     I1 is I - 1,
     insere_lin(T1, I1, L,T2).
 
 %Caso base 1 listas acabaram e indice diferente de 1, missao cumprida
-insere_lin(T1, I, _, T2) :-
-    I \= 1,
-    T1 = [],
-    T2 = [].
+insere_lin([], I, _, []) :-
+    I \= 1.
 
 %Caso base 2 Lista 1 acabou e indice igual a 1, insercao na lista 2 ultima posicao
-insere_lin(T1, I, L, [H2|T2]) :-
-    I = 1,
-    T1 = [],
-    H2 = L,
-    T2 = [].
+insere_lin([], 1, L, [L|[]]).
+insere_lin(M, 0, _, M).
     
 
 
