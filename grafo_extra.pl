@@ -19,19 +19,26 @@ seguinte estrutura:
                    ]),g1).
 
 
-extrai_grafo_aon(arv(objint('VirarMestre',par),
-                   [arv(objint('TecnicasProg',par),
-                       [arv(objterm('Prolog',['Dev','Prog'],666,2),[]),
-                        arv(objterm('StandardML',['Prolog'],666,2),[])
+extrai_grafo_aon(arv(objint('TituloMestre',par),
+                   [arv(objterm('Ingles',['V'],200,1),[]),
+                    arv(objterm('DefesaDissertacao',['Ingles','TecnicasProg','ModSim','Probabilidade','Analise de Algoritimos'],22000,365),[]),
+                    arv(objint('1Semestre',par),
+                       [arv(objterm('TecnicasProg',['V'],5000,180),[]),
+                        arv(objterm('ModSim',['V'],5000,180),[])
                        ]),
-                    arv(objint('IA',par),
-                       [arv(objint('Simbolica',par),
-                           [arv(objterm('Inferencia',['Prolog','Prog'],666,2),[]),
-                            arv(objterm('RepresentacaoConhecimento',['Prolog'],666,2),[])
-                           ]),
-                        arv(objterm('Modelagem',['Inferencia'],666,2),[])
+                   arv(objint('2Semestre',par),
+                       [arv(objterm('Probabilidade',['TecnicasProg','ModSim'],5000,180),[]),
+                        arv(objterm('Analise de Algoritimos',['TecnicasProg','ModSim'],5000,180),[])
                        ])
                    ]),g1).
+
+
+extrai_grafo_aon(arv(objint('TituloMestre',par),
+                   [arv(objterm('Ingles',['V'],200,1),[]),
+                    arv(objterm('DefesaDissertacao',['Ingles','TecnicasProg','Mod e Sim','Probabilidade','Analise de Algoritimos'],22000,365),[])
+                   ]),g1).
+
+
 
 */
 
@@ -81,12 +88,16 @@ extrai_grafo_aon([H|T],Lista,G):-
 %--Exercicio b ----------------------------------
 
 caminho_critico(G,[H|T],P,H) :-
-    arco(G,H,Y) ->
-        nodo(G,H,P1),
-        caminho_critico(G,T,P2,Y),
-        P is P1 + P2;
+    arco(G,H,Y),
+    nodo(G,H,P1),
+    caminho_critico(G,T,P2,Y),
+    P is P1 + P2.
+
+caminho_critico(G,[H|T],P,H) :-
+        \+arco(G,H,_),
         nodo(G,H,P),
         T = [].
+
 caminho_critico(G,[H|T],P) :-
     nodo(G,H,P1),
     arco(G,H,Y),
