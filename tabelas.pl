@@ -1,10 +1,7 @@
 %--exercício a--------------------------------------------------
 
 %Caso base, linha igual a 0 e Coluna igual a 1, deve unificar somente quando H = E pois esta acessando o indice devido
-indice(E,I,J,[H|T]) :-
-    I = 0,
-    J = 1,
-    H = E.
+indice(E,0,1,[E|_]).
 
 %Caso 1, a linha ainda é maior que 1, logo temos que seguir validando as demais linhas e decrementando I
 indice(E,I,J,[H|T]) :-
@@ -75,9 +72,7 @@ transposta([[]|T],[]) :-
 
 %predicado auxiliar para tratar o exercício, captira a primera coluna da matriz e 
 % da como saida a tabela restante e uma lista representando a primeira coluna
-primColuna([[H|T1]|R1],[H2|T2],[H3|T3]) :-
-    T1 = H2,
-    H = H3,
+primColuna([[H|X]|R1],[X|T2],[H|T3]) :-
     primColuna(R1,T2,T3).
 primColuna([],[],[]).
 
